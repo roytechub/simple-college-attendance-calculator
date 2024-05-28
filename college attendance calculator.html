@@ -1,0 +1,71 @@
+<!--
+    Note: This code is intended for use in WordPress.
+    Check this url for how it look in wordpress site- https://roytechub.com/college-attendance-percentage-calculator/
+
+    Explanation:-
+    This code creates a college attendance calculator for a WordPress website using HTML, CSS, and JavaScript. 
+    The HTML provides a form with input fields for total and attended classes, a button to trigger the calculation, and a paragraph to display the results. 
+    The CSS styles the form, making it visually appealing with margins, background color, rounded corners, and button hover effects. 
+    The JavaScript function calculateAttendance retrieves input values, validates them, and calculates attendance and absence percentages, displaying the results dynamically. 
+    Integrate this code by adding the HTML and JavaScript to a WordPress page or post and the CSS to the theme’s stylesheet or customizer.
+-->
+
+
+<div class="container">
+    
+    <label for="totalClasses">Total Classes:</label>
+    <input type="number" id="totalClasses" placeholder="Enter total classes" required>
+    <label for="attendedClasses">Attended Classes:</label>
+    <input type="number" id="attendedClasses" placeholder="Enter attended classes" required>
+    <button onclick="calculateAttendance()">Calculate</button>
+    <p id="result"></p>
+</div>
+<style>
+    .container {
+    margin-top: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container input,
+.container button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.container button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.container button:hover {
+    background-color: #45a049;
+}
+
+</style>
+<script>
+    function calculateAttendance() {
+    var totalClasses = parseInt(document.getElementById("totalClasses").value);
+    var attendedClasses = parseInt(document.getElementById("attendedClasses").value);
+
+    if (isNaN(totalClasses) || isNaN(attendedClasses) || totalClasses <= 0 || attendedClasses < 0 || attendedClasses > totalClasses) {
+        document.getElementById("result").textContent = "Invalid input. Please check your values.";
+    } else {
+        var absentClasses = totalClasses - attendedClasses;
+        var attendancePercentage = (attendedClasses / totalClasses) * 100;
+        var absentPercentage = 100 - attendancePercentage;
+        document.getElementById("result").innerHTML = "Attendance Percentage: " + attendancePercentage.toFixed(2) + "%<br>";
+        document.getElementById("result").innerHTML += "Absent Percentage: " + absentPercentage.toFixed(2) + "%<br>";
+        document.getElementById("result").innerHTML += "Total Number of Absent Classes: " + absentClasses;
+    }
+}
+
+</script>
